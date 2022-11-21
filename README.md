@@ -22,16 +22,17 @@ desenvolvido por [Armando Neto](https://github.com/ArNeto19)
 
 2 - Crie um arquivo .env baseado no .env.example localizado no diretório /server. É sugerido manter as mesmas informações;
 
-2 - Instale as dependeências: rode o comando abaixo em ambos os diretórios /frontend e /server;
+3 - Instale as dependeências: rode o comando abaixo em ambos os diretórios /frontend e /server;
     
     npm install
 
-2 - Execute o projeto através dos seguintes scripts, em ordem:
+4 - Execute o projeto através dos seguintes scripts, em ordem:
     
     npm run docker:up
     npm run migration:create
     npm run migration:run
+    navegar até: http://localhost:3000
 
-3 - Caso deseje fazer alterações e buildar via Docker sem levantar toda a aplicação novamente:
+5 - Caso deseje fazer alterações e buildar via Docker sem levantar toda a aplicação novamente:
 
     npm run docker:build [frontend/server] **trocar nome do diretório de acordo com onde foram feitas as mudanças de código.
