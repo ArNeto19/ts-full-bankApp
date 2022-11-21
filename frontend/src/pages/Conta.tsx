@@ -1,21 +1,14 @@
 import { Flex, SimpleGrid } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CardInfo from "../components/CardInfo";
 import { AuthContext } from "../context/auth";
 
 export const Conta = () => {
-  const { authenticate, userData } = useContext(AuthContext);
+  const { userData, isUserLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    authenticate().then((loggedIn) => {
-      if (!loggedIn) {
-        navigate('/signup');
-        return
-      }
-    })
-  }, [authenticate, navigate]);
+  !isUserLoggedIn && navigate("/");
 
   return (
     <Flex minH="50vh" align="center" textAlign="center" justify="center">

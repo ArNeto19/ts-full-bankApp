@@ -15,7 +15,7 @@ const Home = () => {
       }
       navigate("/conta");
     });
-  }, [userData, authenticate, navigate]);
+  }, [authenticate, userData, navigate]);
 
   return (
     <Flex minH="100vh" align="center" textAlign="center" justify="center">

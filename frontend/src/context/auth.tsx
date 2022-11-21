@@ -15,6 +15,8 @@ interface UserData {
 }
 
 type AuthContextType = {
+  isUserLoggedIn: boolean | undefined;
+  setIsUserLoggedIn: (isUserLoggedIn: boolean | undefined) => void
   userData: UserData | null | undefined;
   authenticate: () => Promise<boolean | undefined>;
   login: (username: string, password: string) => Promise<boolean | undefined>;
@@ -22,6 +24,8 @@ type AuthContextType = {
 };
 
 const initialValue = {
+  isUserLoggedIn: false,
+  setIsUserLoggedIn: () => false,
   userData: null,
   authenticate: async () => false,
   login: async () => false,
@@ -31,6 +35,7 @@ const initialValue = {
 export const AuthContext = createContext<AuthContextType>(initialValue);
 
 export const AuthContextProvider = ({ children }: AuthContextProps) => {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean | undefined>()
   const [userData, setUserData] = useState<null | UserData>();
 
   const authenticate = async () => {
@@ -41,9 +46,10 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
         },
       });
       setUserData(await res.data);
+      setIsUserLoggedIn(true);
       return true;
     } catch (err) {
-      console.log(err);
+      setIsUserLoggedIn(false);
       return false;
     }
   };
@@ -64,12 +70,15 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
   };
 
   const clearToken = () => {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
+    localStorage.setItem("token", '');
   };
 
   return (
     <AuthContext.Provider
       value={{
+        isUserLoggedIn,
+        setIsUserLoggedIn,
         userData,
         login,
         clearToken,

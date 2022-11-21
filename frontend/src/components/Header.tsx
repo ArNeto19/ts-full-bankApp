@@ -1,20 +1,16 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth";
 
 export const Header = () => {
-  const { authenticate, clearToken } = useContext(AuthContext);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean | undefined>(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    authenticate().then((isLoggedIn) => setIsUserLoggedIn(isLoggedIn));
-  }, [authenticate]);
+  const { clearToken, isUserLoggedIn, setIsUserLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();  
 
   const logout = () => {
     clearToken();
-    navigate("/");
+    setIsUserLoggedIn(false)
+    navigate("/login");
   };
 
   return (
