@@ -2,10 +2,12 @@ import { Flex, SimpleGrid } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CardInfo from "../components/CardInfo";
+import { TransferForm } from "../components/TransferForm";
 import { AuthContext } from "../context/auth";
 
 export const Conta = () => {
   const { userData, isUserLoggedIn } = useContext(AuthContext);
+  const currencyBalance = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(userData?.accountId.balance);
   const navigate = useNavigate();
 
   !isUserLoggedIn && navigate("/");
@@ -16,9 +18,9 @@ export const Conta = () => {
         <>
           <CardInfo
             mainContent={`Bem vindx @${userData?.username}`}
-            content={`Saldo: R$${userData?.accountId.balance}`}
+            content={currencyBalance}
           />
-          <CardInfo mainContent="Transações" content="" />
+          <TransferForm />
         </>
       </SimpleGrid>
     </Flex>

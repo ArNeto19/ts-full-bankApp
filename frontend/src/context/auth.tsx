@@ -11,7 +11,7 @@ interface UserData {
   accountId: {
     id: number;
     balance: number;
-  };
+  } | any;
 }
 
 type AuthContextType = {

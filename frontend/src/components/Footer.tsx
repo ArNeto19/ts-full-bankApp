@@ -3,6 +3,6 @@ export const Footer = () => {
 
   return (
     <footer>
-      <p> Copyright ⓒ {thisYear}</p>
+      <p> Copyright by @ArNeto19 ⓒ {thisYear}</p>
     </footer>)
 };
