@@ -11,14 +11,18 @@ export class UserController {
     const validPass = regExp.test(password);
 
     if (username.length < 3 || password.length < 8) {
-      res
+      return res
         .status(409)
         .json({ message: "It was not possible to create new user. Invalid username or password!" });
-    } else if (!validPass) {
-      res
+    }
+    
+    if (!validPass) {
+      return res
         .status(409)
-        .json({ message: "It was not possible to create new user. Invalid username or password!" });
-    } else {
+        .json({ message: "It was not possible to create new user. Invalid username or password!" });        
+    } 
+
+
       const userExists = await userRepository.findOneBy({
         username: username,
       });
@@ -46,6 +50,6 @@ export class UserController {
       } catch (err) {
         return res.status(500).json({ message: `Internal server error: ${err}` });
       }
-    }
+    
   }
 }

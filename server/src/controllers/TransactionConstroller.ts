@@ -13,14 +13,14 @@ export class TransactionController {
     }
 
     try {
-      const newUser = transactionRepository.create({
+      const newTransaction = transactionRepository.create({
         debitedAccountId,
         creditedAccountId,
       });
 
-      await transactionRepository.save(newUser);
+      await transactionRepository.save(newTransaction);
 
-      return res.status(201).json(newUser);
+      return res.status(201).json(newTransaction);
     } catch (err) {
       return res.status(500).json({ message: `Internal server error: ${err}` });
     }

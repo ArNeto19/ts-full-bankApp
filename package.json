@@ -1,0 +1,21 @@
+{
+  "name": "ts-full-bankapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "docker-compose up --force-recreate -d --build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArNeto19/ts-full-bankApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArNeto19/ts-full-bankApp/issues"
+  },
+  "homepage": "https://github.com/ArNeto19/ts-full-bankApp#readme"
+}

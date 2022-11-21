@@ -1,14 +1,20 @@
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth";
 
 export const Header = () => {
-  const { isUserLogged } = useContext(AuthContext);
+  const { authenticate, clearToken } = useContext(AuthContext);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean | undefined>(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    authenticate().then((isLoggedIn) => setIsUserLoggedIn(isLoggedIn));
+  }, [authenticate]);
+
   const logout = () => {
-    localStorage.removeItem("token");
+    clearToken();
+    navigate("/");
   };
 
   return (
@@ -17,12 +23,15 @@ export const Header = () => {
         <Heading fontSize="4xl" color="white">
           BankApp
         </Heading>
-        {isUserLogged && (
+        {isUserLoggedIn && (
           <Box p="10">
             <Button
-              onClick={() => {
-                logout();
-                navigate("/");
+              onClick={logout}
+              size="sm"
+              bg="purple.500"
+              color="white"
+              _hover={{
+                bg: "red.400",
               }}>
               Sair
             </Button>

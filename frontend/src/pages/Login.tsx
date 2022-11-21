@@ -12,7 +12,7 @@ export const Login = () => {
           </Heading>
         </Stack>
         <Box rounded={"lg"} bg="white" boxShadow="lg" p={8}>
-          <Stack spacing={6}>
+          <Stack spacing={4}>
             <Form method="login"/>
           </Stack>
         </Box>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 type AuthContextProps = {
   children: ReactNode;
@@ -15,34 +15,67 @@ interface UserData {
 }
 
 type AuthContextType = {
-  isUserLogged: boolean;
   userData: UserData | null | undefined;
+  authenticate: () => Promise<boolean | undefined>;
+  login: (username: string, password: string) => Promise<boolean | undefined>;
+  clearToken: () => void;
 };
 
 const initialValue = {
-  isUserLogged: false,
   userData: null,
+  authenticate: async () => false,
+  login: async () => false,
+  clearToken: () => {},
 };
 
 export const AuthContext = createContext<AuthContextType>(initialValue);
 
 export const AuthContextProvider = ({ children }: AuthContextProps) => {
-  const [isUserLogged, setIsUserLogged] = useState(initialValue.isUserLogged);
   const [userData, setUserData] = useState<null | UserData>();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/authenticate", {
+  const authenticate = async () => {
+    try {
+      let res = await axios.get("http://localhost:8080/authenticate", {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
-      })
-      .then(async (res) => {
-        const data: null | UserData = await res.data;
-        setUserData(data);
-        setIsUserLogged(true);
       });
-  }, []);
+      setUserData(await res.data);
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  };
 
-  return <AuthContext.Provider value={{ isUserLogged, userData }}>{children}</AuthContext.Provider>;
+  const login = async (username: string, password: string) => {
+    try {
+      let res = await axios.post("http://localhost:8080/authenticate", {
+        username: username,
+        password: password,
+      });
+      if (await res.data) {
+        localStorage.setItem("token", `Bearer ${await res.data.token}`);
+        return true;
+      }
+    } catch (err) {
+      return false;
+    }
+  };
+
+  const clearToken = () => {
+    localStorage.removeItem("token");
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        userData,
+        login,
+        clearToken,
+        authenticate,
+      }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

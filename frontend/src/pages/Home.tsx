@@ -4,16 +4,18 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth";
 
 const Home = () => {
-  const { isUserLogged, userData } = useContext(AuthContext);
+  const { authenticate, userData } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isUserLogged && userData?.username) {
-      navigate(`/conta/${userData.username}`);
-    } else {
-      navigate("/signup");
-    }
-  }, [navigate, isUserLogged, userData]);
+    authenticate().then((loggedIn) => {
+      if (!loggedIn) {
+        navigate("/signup");
+        return;
+      }
+      navigate("/conta");
+    });
+  }, [userData, authenticate, navigate]);
 
   return (
     <Flex minH="100vh" align="center" textAlign="center" justify="center">
