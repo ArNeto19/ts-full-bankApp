@@ -4,6 +4,8 @@ desenvolvido por [Armando Neto](https://github.com/ArNeto19)
 
 #### Projeto fullstack desenvolvido com TypeScript, aplicando conhecimentos moldados através de cursos e desenvolvimento de projetos anteriores.
 
+- Nesta versão 0.1.3 é possível realizar cadastro na plataforma, o que dá ao usuário acesso através de seu username único e senha (ainda não é possível alterar senha). Ao acessar sua conta, o usuário terá acesso a tela que demonstra seu saldo inicial. Todo usuário recebe o valor fictício de 100,00 BRL ao criar seu cadastro. A tela acessada pelo usuário cadastrado também apresenta formulário para realizar transferências (a funcionalidade de transferências deverá ser adicionada em próximas versões). 
+
 ### Tecnologias
 - Typescript
 - React

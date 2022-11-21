@@ -24,7 +24,7 @@ export const TransferForm = () => {
             <Input placeholder="username" />
           </InputGroup>
           <FormLabel mt={"15px"}>Valor</FormLabel>
-          <NumberInput min={1} name="value">
+          <NumberInput min={1} name="value" placeholder="0.00">
             <NumberInputField />
             <NumberInputStepper>
               <NumberIncrementStepper />
