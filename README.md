@@ -38,3 +38,8 @@ desenvolvido por [Armando Neto](https://github.com/ArNeto19)
 5 - Caso deseje fazer alterações e buildar via Docker sem levantar toda a aplicação novamente:
 
     npm run docker:build [frontend/server] **trocar nome do diretório de acordo com onde foram feitas as mudanças de código.
+    
+##DEMO
+
+https://user-images.githubusercontent.com/105897931/203195453-03f9f623-87f0-4aaa-b2f8-d50d174ea6a1.mp4
+
